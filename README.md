@@ -1,1 +1,1 @@
-# i2c-LCD-DHT-11
+# I2c-LCD-DHT-11
