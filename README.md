@@ -24,7 +24,53 @@ To interface an I2C LCD and a DHT11 sensor with an ESP8266 microcontroller to cr
 3. Interface ESP 8266 With I2C 16x2 LCD display and display the value on the LCD.
   *  Library ----> [https://github.com/adafruit/Adafruit_Sensor.git ](https://github.com/fdebrabander/Arduino-LiquidCrystal-I2C-library.git)
 4. Interface Both LCD and DHT11 with ESP 8266 ,display the value parameters and value of dht 11 on display
+# Code 
+```
+#include <Wire.h>
+#include <LiquidCrystal_I2C.h>
+#include "DHT.h"  
+#define DHTTYPE DHT11
+#define DHTPIN D6 
+float h;
+float t;
+
+DHT dht(DHTPIN, DHTTYPE);
+LiquidCrystal_I2C lcd(0x27,16,2);
+
+void setup()
+{
+  lcd.begin();
   
+  dht.begin();
+  
+}
 
 
-    
+void loop()
+{
+  h = dht.readHumidity(); 
+  t = dht.readTemperature(); 
+
+  lcd.setCursor(0,0);
+  lcd.print("Humidity: ");
+  lcd.setCursor(11,0);
+  lcd.print(h);
+  lcd.setCursor(13,0);
+  lcd.print(" %");
+
+  lcd.setCursor(0,1);
+  lcd.print("Temperature: ");
+  lcd.setCursor(13,1);
+  lcd.print(t);
+  lcd.setCursor(15,0);
+  lcd.print(" *C");
+  
+}
+```
+# Output
+![2 1](https://github.com/user-attachments/assets/45414a74-76f1-4ac7-9f99-4f367c14f49e)
+![2](https://github.com/user-attachments/assets/ea858645-3682-4700-a5ec-4cb0aaa567f7)
+# Reference
+## librarys & Code preference 
+ * (http://easycoding.tn/index.php/resources)
+ * (https://chem.libretexts.org/Courses/Intercollegiate_Courses/Internet_of_Science_Things/7%3A_Appendix_5%3A_Microcontollers/2%3A_Read_Temperature_and_Humidity_with_DHT22))
